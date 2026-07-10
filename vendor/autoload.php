@@ -26,7 +26,22 @@ spl_autoload_register( function ( $class ) {
     $relative_class = substr( $class, $len );
 
     // Replace namespace separators with directory separators.
-    $file = $base_dir . strtolower( str_replace( '\\', '/', $relative_class ) ) . '.php';
+    $file_path = str_replace( '\\', '/', $relative_class );
+    
+    // Build filename: convert namespace to directory structure.
+    // E.g., Core\Rewrite_Rules -> core/rewrite-rules.php
+    $parts = explode( '/', $file_path );
+    $filename = array_pop( $parts );
+    // Convert underscores to hyphens in filename.
+    $filename = str_replace( '_', '-', strtolower( $filename ) );
+    
+    // Rebuild path.
+    $subdir = implode( '/', $parts );
+    if ( ! empty( $subdir ) ) {
+        $file = $base_dir . $subdir . '/' . $filename . '.php';
+    } else {
+        $file = $base_dir . $filename . '.php';
+    }
 
     // If the file exists, require it.
     if ( file_exists( $file ) ) {

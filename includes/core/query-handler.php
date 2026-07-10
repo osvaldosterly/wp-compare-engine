@@ -53,27 +53,30 @@ class Query_Handler {
 
         // Validate count.
         if ( count( $slugs ) < $min_items ) {
+            status_header( 400 );
             wp_die( 
-                sprintf( __( 'Minimum %d items required for comparison.', 'wp-compare-engine' ), $min_items ), 
-                '', 
-                array( 'response' => 400 ) 
+                sprintf( __( 'Minimum %d items required for comparison.', 'wp-compare-engine' ), $min_items ),
+                __( 'Comparison Error', 'wp-compare-engine' ),
+                array( 'response' => 400 )
             );
         }
 
         if ( count( $slugs ) > $max_items ) {
+            status_header( 400 );
             wp_die( 
-                sprintf( __( 'Maximum %d items allowed for comparison.', 'wp-compare-engine' ), $max_items ), 
-                '', 
-                array( 'response' => 400 ) 
+                sprintf( __( 'Maximum %d items allowed for comparison.', 'wp-compare-engine' ), $max_items ),
+                __( 'Comparison Error', 'wp-compare-engine' ),
+                array( 'response' => 400 )
             );
         }
 
         // Check for duplicates.
         if ( count( $slugs ) !== count( array_unique( $slugs ) ) ) {
+            status_header( 400 );
             wp_die( 
-                __( 'Duplicate items detected in comparison.', 'wp-compare-engine' ), 
-                '', 
-                array( 'response' => 400 ) 
+                __( 'Duplicate items detected in comparison.', 'wp-compare-engine' ),
+                __( 'Comparison Error', 'wp-compare-engine' ),
+                array( 'response' => 400 )
             );
         }
 
