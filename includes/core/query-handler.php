@@ -33,7 +33,7 @@ class Query_Handler {
      * Constructor.
      */
     public function __construct() {
-        add_action( 'template_redirect', array( $this, 'handle_compare_query' ) );
+        add_action( 'template_redirect', array( $this, 'handle_compare_query' ), 5 );
     }
 
     /**
@@ -53,32 +53,31 @@ class Query_Handler {
 
         // Validate count.
         if ( count( $slugs ) < $min_items ) {
-            $this->error = __( 'Minimum %d items required for comparison.', 'wp-compare-engine' );
-            wp_die( sprintf( $this->error, $min_items ), 400 );
+            wp_die( 
+                sprintf( __( 'Minimum %d items required for comparison.', 'wp-compare-engine' ), $min_items ), 
+                '', 
+                array( 'response' => 400 ) 
+            );
         }
 
         if ( count( $slugs ) > $max_items ) {
-            $this->error = __( 'Maximum %d items allowed for comparison.', 'wp-compare-engine' );
-            wp_die( sprintf( $this->error, $max_items ), 400 );
+            wp_die( 
+                sprintf( __( 'Maximum %d items allowed for comparison.', 'wp-compare-engine' ), $max_items ), 
+                '', 
+                array( 'response' => 400 ) 
+            );
         }
 
         // Check for duplicates.
         if ( count( $slugs ) !== count( array_unique( $slugs ) ) ) {
-            $this->error = __( 'Duplicate items detected in comparison.', 'wp-compare-engine' );
-            wp_die( $this->error, 400 );
+            wp_die( 
+                __( 'Duplicate items detected in comparison.', 'wp-compare-engine' ), 
+                '', 
+                array( 'response' => 400 ) 
+            );
         }
 
-        // Fetch posts.
-        $args = array(
-            'post_type'      => $allowed_post_types,
-            'post_status'    => 'publish',
-            'name__in'       => $slugs,
-            'posts_per_page' => $max_items,
-            'orderby'        => 'post__in',
-            'post__in'       => array(), // Will be populated by name lookup.
-        );
-
-        // We need to fetch by slug manually to ensure order and existence.
+        // Fetch posts by slug.
         $posts = array();
         foreach ( $slugs as $slug ) {
             $post = get_page_by_path( $slug, OBJECT, $allowed_post_types );
@@ -100,6 +99,9 @@ class Query_Handler {
         // Modify the main query to use these posts.
         add_filter( 'the_title', array( $this, 'modify_page_title' ), 10, 2 );
         add_filter( 'document_title_parts', array( $this, 'modify_document_title' ) );
+        
+        // Store globally for other classes to access.
+        $GLOBALS['wpce_compared_posts'] = $posts;
     }
 
     /**

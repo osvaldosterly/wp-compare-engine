@@ -46,18 +46,21 @@ class Comparison_Logic {
             return;
         }
 
-        $query_handler = new \WPCE\Core\Query_Handler();
-        // Access posts via global or re-fetch since Query_Handler stores privately.
-        // We'll re-fetch based on slugs for simplicity in this architecture.
-        $slugs = \WPCE\Core\Rewrite_Rules::parse_slugs();
-        $settings = get_option( 'wpce_settings', array() );
-        $allowed_post_types = isset( $settings['allowed_post_types'] ) ? $settings['allowed_post_types'] : array( 'post', 'product' );
+        // Try to get posts from global first (set by Query_Handler).
+        if ( ! empty( $GLOBALS['wpce_compared_posts'] ) && is_array( $GLOBALS['wpce_compared_posts'] ) ) {
+            $this->posts = $GLOBALS['wpce_compared_posts'];
+        } else {
+            // Fallback: re-fetch based on slugs.
+            $slugs = \WPCE\Core\Rewrite_Rules::parse_slugs();
+            $settings = get_option( 'wpce_settings', array() );
+            $allowed_post_types = isset( $settings['allowed_post_types'] ) ? $settings['allowed_post_types'] : array( 'post', 'product' );
 
-        $this->posts = array();
-        foreach ( $slugs as $slug ) {
-            $post = get_page_by_path( $slug, OBJECT, $allowed_post_types );
-            if ( $post ) {
-                $this->posts[] = $post;
+            $this->posts = array();
+            foreach ( $slugs as $slug ) {
+                $post = get_page_by_path( $slug, OBJECT, $allowed_post_types );
+                if ( $post ) {
+                    $this->posts[] = $post;
+                }
             }
         }
 
