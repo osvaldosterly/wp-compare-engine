@@ -1,0 +1,333 @@
+/**
+ * WP Compare Engine - Frontend Styles
+ *
+ * Minimal styling, designed to work with GenerateBlocks.
+ */
+
+:root {
+    --wpce-primary: #0073aa;
+    --wpce-primary-hover: #005177;
+    --wpce-bg: #ffffff;
+    --wpce-border: #e2e8f0;
+    --wpce-text: #1a202c;
+    --wpce-text-muted: #718096;
+    --wpce-diff-bg: #fffaf0;
+    --wpce-same-bg: #f7fafc;
+}
+
+/* Floating Bar */
+.wpce-floating-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--wpce-bg);
+    border-top: 1px solid var(--wpce-border);
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    z-index: 9999;
+    transition: transform 0.3s ease;
+}
+
+.wpce-bar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wpce-bar-text {
+    font-weight: 500;
+    color: var(--wpce-text);
+}
+
+.wpce-bar-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.wpce-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.wpce-btn-primary {
+    background: var(--wpce-primary);
+    color: #fff;
+}
+
+.wpce-btn-primary:hover:not(:disabled) {
+    background: var(--wpce-primary-hover);
+}
+
+.wpce-btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.wpce-btn-secondary {
+    background: #edf2f7;
+    color: var(--wpce-text);
+}
+
+.wpce-btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+/* Modal */
+.wpce-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wpce-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.wpce-modal-content {
+    position: relative;
+    background: var(--wpce-bg);
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.wpce-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--wpce-border);
+}
+
+.wpce-modal-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.wpce-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--wpce-text-muted);
+}
+
+.wpce-modal-body {
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.wpce-search-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--wpce-border);
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.wpce-search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.wpce-search-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--wpce-border);
+    cursor: pointer;
+}
+
+.wpce-search-item:hover {
+    background: #f7fafc;
+}
+
+.wpce-search-item img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.wpce-search-item-info {
+    flex: 1;
+}
+
+.wpce-search-item-title {
+    font-weight: 500;
+    margin: 0;
+}
+
+.wpce-search-item-type {
+    font-size: 0.875rem;
+    color: var(--wpce-text-muted);
+}
+
+/* Compare Table */
+.wpce-compare-table-wrapper {
+    overflow-x: auto;
+    margin: 2rem 0;
+}
+
+.wpce-compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.wpce-compare-table th,
+.wpce-compare-table td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid var(--wpce-border);
+    vertical-align: top;
+}
+
+.wpce-feature-cell {
+    width: 200px;
+    background: #f7fafc;
+    font-weight: 600;
+    position: sticky;
+    left: 0;
+    z-index: 10;
+}
+
+.wpce-table-header th {
+    position: sticky;
+    top: 0;
+    background: var(--wpce-bg);
+    z-index: 20;
+}
+
+.wpce-sticky-title {
+    display: block;
+}
+
+.compare-different {
+    background: var(--wpce-diff-bg);
+}
+
+.compare-same {
+    background: var(--wpce-same-bg);
+}
+
+.wpce-group-row td {
+    background: #edf2f7;
+    padding: 0.5rem 1rem;
+}
+
+.wpce-group-title {
+    margin: 0;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--wpce-text-muted);
+}
+
+.wpce-empty {
+    color: var(--wpce-text-muted);
+    font-style: italic;
+}
+
+.wpce-yes {
+    color: #38a169;
+    font-weight: 500;
+}
+
+.wpce-no {
+    color: #e53e3e;
+}
+
+.wpce-item-mini {
+    text-align: center;
+}
+
+.wpce-mini-thumb img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.wpce-mini-title {
+    display: block;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+/* Compare Page Header */
+.wpce-header-grid {
+    display: grid;
+    grid-template-columns: 200px repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.wpce-item-thumbnail img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.wpce-item-title {
+    margin: 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.wpce-item-excerpt {
+    color: var(--wpce-text-muted);
+    font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .wpce-bar-container {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+    }
+
+    .wpce-header-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wpce-feature-cell {
+        width: 150px;
+    }
+}
+
+/* Accessibility */
+.wpce-modal[aria-hidden="true"] {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.wpce-modal[aria-hidden="false"] {
+    visibility: visible;
+    opacity: 1;
+}
+
+:focus-visible {
+    outline: 2px solid var(--wpce-primary);
+    outline-offset: 2px;
+}
