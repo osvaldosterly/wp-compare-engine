@@ -95,17 +95,19 @@ class Settings {
         add_settings_field(
             'enable_sticky_bar',
             __( 'Enable Sticky Bar', 'wp-compare-engine' ),
-            array( $this, 'render_checkbox_field', 'enable_sticky_bar' ),
+            array( $this, 'render_checkbox_field' ),
             'wp-compare-engine',
-            'wpce_features_section'
+            'wpce_features_section',
+            array( 'option_name' => 'enable_sticky_bar' )
         );
 
         add_settings_field(
             'highlight_differences',
             __( 'Highlight Differences', 'wp-compare-engine' ),
-            array( $this, 'render_checkbox_field', 'highlight_differences' ),
+            array( $this, 'render_checkbox_field' ),
             'wp-compare-engine',
-            'wpce_features_section'
+            'wpce_features_section',
+            array( 'option_name' => 'highlight_differences' )
         );
     }
 
@@ -189,9 +191,14 @@ class Settings {
     /**
      * Render checkbox field.
      *
-     * @param string $option_name Option name.
+     * @param array $args Field arguments.
      */
-    public function render_checkbox_field( $option_name ) {
+    public function render_checkbox_field( $args ) {
+        $option_name = $args['option_name'] ?? '';
+        if ( empty( $option_name ) ) {
+            return;
+        }
+        
         $settings = get_option( 'wpce_settings', array() );
         $value = isset( $settings[ $option_name ] ) ? $settings[ $option_name ] : 1;
         printf(
