@@ -31,15 +31,15 @@ class Assets {
         
         wp_enqueue_style(
             'wpce-style',
-            WPCE_PLUGIN_URL . 'assets/css/wp-compare.css',
+            WPCE_PLUGIN_URL . 'assets/css/frontend.css',
             array(),
             WPCE_VERSION
         );
 
         wp_enqueue_script(
             'wpce-script',
-            WPCE_PLUGIN_URL . 'assets/js/wp-compare.js',
-            array(),
+            WPCE_PLUGIN_URL . 'assets/js/frontend.js',
+            array('jquery'),
             WPCE_VERSION,
             true
         );

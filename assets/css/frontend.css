@@ -1,0 +1,404 @@
+/**
+ * WP Compare Engine - Frontend Styles
+ * Minimal, clean styling for Floating Bar, Search Modal, and Checkboxes
+ * Designed to work with GeneratePress/GenerateBlocks
+ */
+
+:root {
+    --wpce-primary: #0073aa;
+    --wpce-primary-hover: #005177;
+    --wpce-bg: #ffffff;
+    --wpce-text: #333333;
+    --wpce-border: #e0e0e0;
+    --wpce-overlay: rgba(0, 0, 0, 0.5);
+    --wpce-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --wpce-radius: 4px;
+}
+
+/* =========================================
+   Compare Checkbox
+   ========================================= */
+.wpce-compare-wrapper {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.wpce-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    color: var(--wpce-text);
+    transition: color 0.2s ease;
+}
+
+.wpce-checkbox-label:hover {
+    color: var(--wpce-primary);
+}
+
+.wpce-checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--wpce-primary);
+}
+
+.wpce-checkbox-label.wpce-selected {
+    color: var(--wpce-primary);
+    font-weight: 600;
+}
+
+.wpce-check-text {
+    font-weight: 500;
+}
+
+/* =========================================
+   Floating Bar
+   ========================================= */
+.wpce-floating-bar {
+    position: fixed;
+    bottom: -100%; /* Hidden by default */
+    left: 0;
+    width: 100%;
+    background: var(--wpce-bg);
+    border-top: 1px solid var(--wpce-border);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    padding: 15px 20px;
+    transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.wpce-floating-bar.wpce-bar-visible {
+    bottom: 0;
+}
+
+.wpce-bar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.wpce-bar-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.wpce-label {
+    font-weight: 600;
+    color: var(--wpce-text);
+    font-size: 14px;
+}
+
+.wpce-bar-list {
+    display: flex;
+    gap: 8px;
+}
+
+.wpce-bar-item {
+    background: #f5f5f5;
+    padding: 4px 10px;
+    border-radius: var(--wpce-radius);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--wpce-border);
+}
+
+.wpce-bar-item-title {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wpce-remove-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.wpce-remove-item:hover {
+    color: #d63638;
+}
+
+.wpce-count-badge {
+    background: var(--wpce-primary);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.wpce-bar-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.wpce-btn-search,
+.wpce-btn-clear,
+.wpce-btn-compare {
+    padding: 8px 16px;
+    border-radius: var(--wpce-radius);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.wpce-btn-search {
+    background: #f5f5f5;
+    color: var(--wpce-text);
+    border: 1px solid var(--wpce-border);
+}
+
+.wpce-btn-search:hover {
+    background: #e5e5e5;
+}
+
+.wpce-btn-clear {
+    background: transparent;
+    color: #666;
+    border: 1px solid var(--wpce-border);
+}
+
+.wpce-btn-clear:hover {
+    background: #f5f5f5;
+    color: #d63638;
+    border-color: #d63638;
+}
+
+.wpce-btn-compare {
+    background: var(--wpce-primary);
+    color: #fff;
+}
+
+.wpce-btn-compare:hover:not(:disabled) {
+    background: var(--wpce-primary-hover);
+}
+
+.wpce-btn-compare:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Responsive Floating Bar */
+@media (max-width: 768px) {
+    .wpce-bar-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .wpce-bar-info {
+        justify-content: center;
+    }
+
+    .wpce-bar-actions {
+        justify-content: center;
+    }
+
+    .wpce-bar-item-title {
+        max-width: 100px;
+    }
+}
+
+/* =========================================
+   Search Modal
+   ========================================= */
+.wpce-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--wpce-overlay);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 100px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.wpce-modal-overlay.wpce-modal-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.wpce-search-modal {
+    background: var(--wpce-bg);
+    width: 90%;
+    max-width: 500px;
+    border-radius: var(--wpce-radius);
+    box-shadow: var(--wpce-shadow);
+    overflow: hidden;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.wpce-modal-overlay.wpce-modal-open .wpce-search-modal {
+    transform: translateY(0);
+}
+
+.wpce-modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--wpce-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wpce-modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--wpce-text);
+}
+
+.wpce-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+    padding: 0;
+}
+
+.wpce-modal-close:hover {
+    color: #000;
+}
+
+.wpce-modal-body {
+    padding: 20px;
+}
+
+.wpce-search-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--wpce-border);
+    border-radius: var(--wpce-radius);
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.wpce-search-input:focus {
+    border-color: var(--wpce-primary);
+    box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.2);
+}
+
+.wpce-search-results {
+    margin-top: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.wpce-search-result-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px;
+    border: 1px solid var(--wpce-border);
+    border-radius: var(--wpce-radius);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.wpce-search-result-item:hover {
+    background: #f9f9f9;
+    border-color: var(--wpce-primary);
+}
+
+.wpce-search-thumb {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    background: #f5f5f5;
+    border-radius: var(--wpce-radius);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wpce-search-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.wpce-no-thumb {
+    width: 20px;
+    height: 20px;
+    background: #ddd;
+    border-radius: 50%;
+}
+
+.wpce-search-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.wpce-search-title {
+    font-weight: 600;
+    color: var(--wpce-text);
+    font-size: 14px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wpce-search-type {
+    font-size: 12px;
+    color: #666;
+    text-transform: capitalize;
+}
+
+.wpce-loading,
+.wpce-no-results,
+.wpce-error {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+.wpce-error {
+    color: #d63638;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+    .wpce-search-modal {
+        width: 95%;
+        margin-top: 20px;
+    }
+
+    .wpce-btn-clear {
+        display: none; /* Save space on mobile */
+    }
+}
