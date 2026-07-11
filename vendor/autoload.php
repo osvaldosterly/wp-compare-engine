@@ -32,13 +32,13 @@ spl_autoload_register( function ( $class ) {
     // E.g., Core\Rewrite_Rules -> core/rewrite-rules.php
     $parts = explode( '/', $file_path );
     $filename = array_pop( $parts );
-    // Convert underscores to hyphens in filename.
-    $filename = str_replace( '_', '-', strtolower( $filename ) );
+    // Convert underscores to hyphens and lowercase for filename.
+    $filename = strtolower( str_replace( '_', '-', $filename ) );
     
-    // Rebuild path.
+    // Rebuild path - ensure subdir is also lowercase for case-sensitive systems.
     $subdir = implode( '/', $parts );
     if ( ! empty( $subdir ) ) {
-        $file = $base_dir . $subdir . '/' . $filename . '.php';
+        $file = $base_dir . strtolower( $subdir ) . '/' . $filename . '.php';
     } else {
         $file = $base_dir . $filename . '.php';
     }
