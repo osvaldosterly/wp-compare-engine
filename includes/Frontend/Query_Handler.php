@@ -171,3 +171,4 @@ class Query_Handler {
         return $this->error;
     }
 }
+// Debug version: Sat Jul 11 11:07:52 UTC 2026
